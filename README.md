@@ -8,11 +8,11 @@ The name is based on the following defintion
 
 ## Team
 
- * Alexander Isavnin <isavnin -at- gmail -dot- com>
- * Dmitry Kohmanyuk <dmitry -dot- kohmanyuk -at- gmail -dot- com>
- * Martin Levy <mahtin -at- mahtin -at- com>
- * James Reilly <fun -at- fb -dot- com>
- * Christian Teuschel <cteusche -at- ripe -dot- net>
+ * Alexander Isavnin \<isavnin -at- gmail -dot- com>
+ * Dmitry Kohmanyuk \<dmitry -dot- kohmanyuk -at- gmail -dot- com>
+ * Martin Levy \<mahtin -at- mahtin -at- com>
+ * James Reilly \<fun -at- fb -dot- com>
+ * Christian Teuschel \<cteusche -at- ripe -dot- net>
 
 ## File structure
 
