@@ -50,8 +50,8 @@ TBD
 
 ## Colophon
 
-Teh definition of the word *tryst* is:
+The definition of the word *tryst* is:
 
- - *tryst* a private, romantic rendezvous between lovers
- - *tryst* keep a private, romantic rendezvous
+ - **tryst** - A private, romantic rendezvous between lovers.
+ - **tryst** - Keep a private, romantic rendezvous.
 
