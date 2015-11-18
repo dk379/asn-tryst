@@ -4,7 +4,7 @@ ASN Tryst - A RIPE Atlas Hackathon project
 
 ASN Tryst is an ASN to ASN interconnect viewer written during the November/2015 RIPE Atlas Hackathon in Bucharest Romania (just prior to RIPE71).
 
-The name is based on the following defintion
+The name is explained on the Colophon section
 
 ## Team
 
