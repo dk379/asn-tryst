@@ -40,7 +40,7 @@ def main(argv):
 	c = asntryst_read_config()
 	d = c['database']
 	conn = MySQLdb.connect(host=d['hostname'], user=d['username'], passwd=d['password'], db=d['database'])
-	# print_counts(conn)
+	print_counts(conn)
 	print_traceroute_counts(conn)
 
 	conn.close()
