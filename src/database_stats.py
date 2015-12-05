@@ -36,12 +36,35 @@ def print_traceroute_counts(conn):
 		print('%5s %8s %1s %9s %s' % (count, msm_id, af, start_date, description))
 	cur.close()
 
+def print_measurement_pairs(conn):
+	cur = conn.cursor()
+	cur.execute('select count(measurements.msm_id) as count, measurements.msm_id, measurements.description, measurements.af as af, DATE(measurements.start_time) as start_date \
+			from IPV4PAIRS \
+			left join MIDS on MIDS.`PAIR_ID` = IPV4PAIRS.`PAIR_ID` \
+			left join measurements on measurements.`msm_id` = MIDS.`msm_id` \
+				group by measurements.msm_id \
+				order by count desc \
+					limit 20')
+	results = cur.fetchall()
+	print('%5s %8s %1s %9s %s' % ('count', 'msm_id', 'v', 'start_date', 'description'))
+	for r in results:
+		count = r[0]
+		msm_id = r[1]
+		description = r[2]
+		af = r[3]
+		start_date = r[4]
+		print('%5s %8s %1s %9s %s' % (count, msm_id, af, start_date, description))
+	cur.close()
+
 def main(argv):
 	c = asntryst_read_config()
 	d = c['database']
 	conn = MySQLdb.connect(host=d['hostname'], user=d['username'], passwd=d['password'], db=d['database'])
 	print_counts(conn)
+	print('')
 	print_traceroute_counts(conn)
+	print('')
+	print_measurement_pairs(conn)
 
 	conn.close()
 

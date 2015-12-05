@@ -164,6 +164,21 @@ def asntryst_get_ip_pairs(conn, af_list, asn1, asn2):
 
 	return pairs
 
+def pair_id_2_msm_ids(conn, pair_id):
+	msm_ids = []
+
+	cur = conn.cursor()
+	cur.execute('select MIDS.`msm_id`, UNIX_TIMESTAMP(timestamp), description from MIDS left join measurements on MIDS.`msm_id` = measurements.`msm_id` where `pair_id` = %d limit 10' % (pair_id))
+	results = cur.fetchall()
+	for r in results:
+		msm_id = int(r[0])
+		timestamp = r[1]
+		description = r[2]
+		msm_ids.append({'msm_id': msm_id, 'timestamp': timestamp, 'description': description})
+	cur.close()
+
+	return msm_ids
+
 def doit(conn, af_list, asn1, asn2, geo_file, results_file):
 
 	ip_geo = collect_geo(conn, af_list);
@@ -226,6 +241,15 @@ def doit(conn, af_list, asn1, asn2, geo_file, results_file):
 			print('%-40s -> %-40s v%1d %28s -> %-28s ; %24s %2s %24s' % (as1[0:40], as2[0:40], af, ip1, ip2, latlon1, same_s, latlon2) )
 		else:
 			print('%-40s -> %-40s v%1d %28s -> %-28s ; %24s %2s %24s' % (as2[0:40], as1[0:40], af, ip2, ip1, latlon2, same_s, latlon1) )
+
+		if latlon1 == '' and latlon2 == '':
+			## No Geo for any point in this pair - make sure we say which measurement this is - so we can add geo later
+			msm_ids = pair_id_2_msm_ids(conn, pair_id)
+			for m in msm_ids:
+				msm_id = m['msm_id']
+				timestamp = m['timestamp']
+				description = m['description']
+				print ('+++ check https://marmot.ripe.net/openipmap/tracemap?msm_ids=%d&show_suggestions=0&max_probes=50 ; %s ; %s' %(msm_id, timestamp, description))
 
 		if ip1 in ip_geo:
 			c1 = [ip_geo[ip1]['lon'], ip_geo[ip1]['lat']]
